@@ -33,12 +33,95 @@
     
     <!-- Tab Navigation -->
     <nav class="tab-nav">
-      <button class="tab-btn active" data-tab="tabSimulator">🧪 Live PR Risk Analyzer</button>
       <button class="tab-btn" data-tab="tabGuide">📖 How to Use This Website</button>
+      <button class="tab-btn active" data-tab="tabSimulator">🧪 Live PR Risk Analyzer</button>
       <button class="tab-btn" data-tab="tabBacktesting">🎯 Backtesting & FNR Evaluation</button>
       <button class="tab-btn" data-tab="tabROI">💼 TPM ROI & Impact Model</button>
       <button class="tab-btn" data-tab="tabArchitecture">📐 System Architecture & PRD</button>
     </nav>
+
+    <!-- TAB 2: How to Use This Website -->
+    <section id="tabGuide" class="tab-pane">
+      <div class="card">
+        <div class="card-title">
+          <span>📖 User Guide: How to Use This Website</span>
+          <span class="badge-tag" style="background:#dbeafe; color:#1d4ed8;">Quickstart</span>
+        </div>
+
+        <p style="font-size:0.95rem; color:var(--cds-text-02); margin-bottom:1.5rem; line-height:1.6;">
+          This interactive web application is a fully functional simulator and demonstration platform for the 
+          <strong>PR Risk Triage Agent</strong>. It demonstrates how autonomous risk scoring classifies pull requests,
+          prevents production outages, and eliminates reviewer fatigue. Follow the steps below to explore its capabilities:
+        </p>
+
+        <!-- Step 1 -->
+        <div class="guide-step-card">
+          <div class="guide-step-number">1</div>
+          <div class="guide-step-content">
+            <h4>Test Pre-Built Scenarios with Quick Presets</h4>
+            <p>
+              Under the <strong>🧪 Live PR Risk Analyzer</strong> tab, click any of the scenario chips at the top (such as <em>"🔥 Critical Incident Hotspot"</em>, <em>"📄 Cosmetic Doc & Typo Fix"</em>, or <em>"☁️ Terraform IAM Permissions Overhaul"</em>). The sandbox will instantly load sample diff files, lines of code, author personas, and recompute the risk score in real time.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="guide-step-card">
+          <div class="guide-step-number">2</div>
+          <div class="guide-step-content">
+            <h4>Customize Pull Request Diffs & Author Personas</h4>
+            <p>
+              Try typing your own file paths into the table (e.g. <code>src/auth/jwt_verifier.py</code> or <code>docs/readme.md</code>), change additions/deletions, or click <strong>+ Add File</strong>. Switch the author between a junior engineer (Carol) and a principal architect (Alice) to see how author domain familiarity dynamically alters the risk profile.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="guide-step-card">
+          <div class="guide-step-number">3</div>
+          <div class="guide-step-content">
+            <h4>Inspect Risk Breakdown & Correlated Incidents</h4>
+            <p>
+              Observe the right-hand panel: the circular gauge shows the <strong>Composite Risk Score (0–100)</strong>, color-coded by tier (<em>LOW, MEDIUM, HIGH, CRITICAL</em>). The progress bars break down the exact contributions from <strong>Blast Radius (40%)</strong>, <strong>Incident Correlation (35%)</strong>, and <strong>Author Expertise (25%)</strong>. Check the <em>Correlated Historical Incidents</em> box to see past post-mortems overlapping with the modified files.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="guide-step-card">
+          <div class="guide-step-number">4</div>
+          <div class="guide-step-content">
+            <h4>Preview & Copy the Automated GitHub Bot Comment</h4>
+            <p>
+              Scroll down to the <strong>💬 Automated GitHub PR Comment Preview</strong> box to see the exact markdown comment and risk badge that the agent would post on a real GitHub Pull Request. Click <strong>Copy Markdown</strong> to paste it into any GitHub PR description or issue.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="guide-step-card">
+          <div class="guide-step-number">5</div>
+          <div class="guide-step-content">
+            <h4>Calibrate Thresholds in the Backtesting Lab</h4>
+            <p>
+              Switch to the <strong>🎯 Backtesting & FNR Evaluation</strong> tab. Drag the <em>Risk Review Threshold Slider</em> (between 15 and 75) to see the live 2x2 Confusion Matrix update. Notice how setting the threshold to <code>35.0</code> achieves a <strong>0.0% False-Negative Rate</strong> (Zero SEV-1 incidents missed). Click any historical PR in the table to load it directly into the sandbox!
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="guide-step-card">
+          <div class="guide-step-number">6</div>
+          <div class="guide-step-content">
+            <h4>Model ROI for Your Engineering Organization</h4>
+            <p>
+              Navigate to the <strong>💼 TPM ROI & Impact Model</strong> tab. Adjust your engineering team size, weekly PR volume, and average review times to see projected annual reviewer hours saved and financial savings from prevented production outages.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
 
     <!-- TAB 1: Live PR Risk Analyzer -->
     <section id="tabSimulator" class="tab-pane active">
@@ -191,89 +274,6 @@
             </div>
           </div>
 
-        </div>
-
-      </div>
-    </section>
-
-    <!-- TAB 2: How to Use This Website -->
-    <section id="tabGuide" class="tab-pane">
-      <div class="card">
-        <div class="card-title">
-          <span>📖 User Guide: How to Use This Website</span>
-          <span class="badge-tag" style="background:#dbeafe; color:#1d4ed8;">Quickstart</span>
-        </div>
-
-        <p style="font-size:0.95rem; color:var(--cds-text-02); margin-bottom:1.5rem; line-height:1.6;">
-          This interactive web application is a fully functional simulator and demonstration platform for the 
-          <strong>PR Risk Triage Agent</strong>. It demonstrates how autonomous risk scoring classifies pull requests,
-          prevents production outages, and eliminates reviewer fatigue. Follow the steps below to explore its capabilities:
-        </p>
-
-        <!-- Step 1 -->
-        <div class="guide-step-card">
-          <div class="guide-step-number">1</div>
-          <div class="guide-step-content">
-            <h4>Test Pre-Built Scenarios with Quick Presets</h4>
-            <p>
-              Under the <strong>🧪 Live PR Risk Analyzer</strong> tab, click any of the scenario chips at the top (such as <em>"🔥 Critical Incident Hotspot"</em>, <em>"📄 Cosmetic Doc & Typo Fix"</em>, or <em>"☁️ Terraform IAM Permissions Overhaul"</em>). The sandbox will instantly load sample diff files, lines of code, author personas, and recompute the risk score in real time.
-            </p>
-          </div>
-        </div>
-
-        <!-- Step 2 -->
-        <div class="guide-step-card">
-          <div class="guide-step-number">2</div>
-          <div class="guide-step-content">
-            <h4>Customize Pull Request Diffs & Author Personas</h4>
-            <p>
-              Try typing your own file paths into the table (e.g. <code>src/auth/jwt_verifier.py</code> or <code>docs/readme.md</code>), change additions/deletions, or click <strong>+ Add File</strong>. Switch the author between a junior engineer (Carol) and a principal architect (Alice) to see how author domain familiarity dynamically alters the risk profile.
-            </p>
-          </div>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="guide-step-card">
-          <div class="guide-step-number">3</div>
-          <div class="guide-step-content">
-            <h4>Inspect Risk Breakdown & Correlated Incidents</h4>
-            <p>
-              Observe the right-hand panel: the circular gauge shows the <strong>Composite Risk Score (0–100)</strong>, color-coded by tier (<em>LOW, MEDIUM, HIGH, CRITICAL</em>). The progress bars break down the exact contributions from <strong>Blast Radius (40%)</strong>, <strong>Incident Correlation (35%)</strong>, and <strong>Author Expertise (25%)</strong>. Check the <em>Correlated Historical Incidents</em> box to see past post-mortems overlapping with the modified files.
-            </p>
-          </div>
-        </div>
-
-        <!-- Step 4 -->
-        <div class="guide-step-card">
-          <div class="guide-step-number">4</div>
-          <div class="guide-step-content">
-            <h4>Preview & Copy the Automated GitHub Bot Comment</h4>
-            <p>
-              Scroll down to the <strong>💬 Automated GitHub PR Comment Preview</strong> box to see the exact markdown comment and risk badge that the agent would post on a real GitHub Pull Request. Click <strong>Copy Markdown</strong> to paste it into any GitHub PR description or issue.
-            </p>
-          </div>
-        </div>
-
-        <!-- Step 5 -->
-        <div class="guide-step-card">
-          <div class="guide-step-number">5</div>
-          <div class="guide-step-content">
-            <h4>Calibrate Thresholds in the Backtesting Lab</h4>
-            <p>
-              Switch to the <strong>🎯 Backtesting & FNR Evaluation</strong> tab. Drag the <em>Risk Review Threshold Slider</em> (between 15 and 75) to see the live 2x2 Confusion Matrix update. Notice how setting the threshold to <code>35.0</code> achieves a <strong>0.0% False-Negative Rate</strong> (Zero SEV-1 incidents missed). Click any historical PR in the table to load it directly into the sandbox!
-            </p>
-          </div>
-        </div>
-
-        <!-- Step 6 -->
-        <div class="guide-step-card">
-          <div class="guide-step-number">6</div>
-          <div class="guide-step-content">
-            <h4>Model ROI for Your Engineering Organization</h4>
-            <p>
-              Navigate to the <strong>💼 TPM ROI & Impact Model</strong> tab. Adjust your engineering team size, weekly PR volume, and average review times to see projected annual reviewer hours saved and financial savings from prevented production outages.
-            </p>
-          </div>
         </div>
 
       </div>
