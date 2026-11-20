@@ -10,7 +10,6 @@
 - **Role**: Technical Product Manager (TPM)
 - **Status**: Prototype / Proof-of-Concept (POC)
 - **Target Release**: Q2 2026
-- **Hosting / Operating Cost**: **$0.00 (Zero-Cost GitHub Actions + GitHub Pages)**
 
 ---
 
@@ -82,7 +81,7 @@ $$\text{Score}_{\text{final}} = \max(S, 55.0)$$
 
 ---
 
-## 5. System Architecture & Zero-Cost Infrastructure
+## 5. System Architecture & Infrastructure
 
 ```
                    +------------------------------------+
@@ -93,7 +92,7 @@ $$\text{Score}_{\text{final}} = \max(S, 55.0)$$
                                      v
                    +------------------------------------+
                    |     GitHub Actions CI Runner       |
-                   |      (Free Tier - 0 USD)           |
+                   |     (Automated PR Trigger)         |
                    +-----------------+------------------+
                                      |
                                      v
@@ -112,7 +111,7 @@ $$\text{Score}_{\text{final}} = \max(S, 55.0)$$
 |  Automated GitHub PR Comment  |               |  Interactive Web Dashboard    |
 |  - Assigned Label             |               |  - Live Sandbox Simulator     |
 |  - Key Explainable Drivers    |               |  - Backtesting FNR Analyzer   |
-|  - Checklist & Approvers      |               |  - Hosted on GitHub Pages ($0)|
+|  - Checklist & Approvers      |               |  - Hosted on GitHub Pages     |
 +-------------------------------+               +-------------------------------+
 ```
 
@@ -125,7 +124,7 @@ For a standard mid-market enterprise team (30 developers, 60 PRs/week):
 - **Time saved per cosmetic PR**: $30\text{ minutes}$.
 - **Annual Reviewer Capacity Saved**: **$624\text{ hours}$** ($\approx \$59,280$ value at $\$95/\text{hr}$).
 - **Escaped Incident Mitigation**: Prevents $3.5\text{ major outages/year}$ ($\approx \$140,000$ value).
-- **Total Annual Value Delivered**: **$\$199,280$** at **$\$0.00$ incremental SaaS/server cost**.
+- **Total Annual Value Delivered**: **$\$199,280$**.
 
 ---
 

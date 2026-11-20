@@ -1,6 +1,6 @@
 # 🛡️ PR Risk Triage Agent
 
-> **An intelligent, zero-cost shift-left agent that scores every Pull Request on blast radius, past incident correlation, and author context — routing reviewer attention where it matters most.**
+> **An intelligent shift-left agent that scores every Pull Request on blast radius, past incident correlation, and author context — routing reviewer attention where it matters most.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python: 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
@@ -10,7 +10,7 @@
 
 ---
 
-## 🚀 Live Interactive Demo (Zero-Cost on GitHub Pages)
+## 🚀 Live Interactive Demo (GitHub Pages)
 
 Experience the live PR Risk Triage sandbox, historical incident heatmaps, confusion matrix, and TPM ROI calculator directly in your browser:
 👉 **[Open Live Web POC Dashboard](index.html)** *(Or enable GitHub Pages under repository Settings -> Pages -> Deploy from a branch)*
@@ -173,7 +173,7 @@ When triggered, the bot generates an explainable markdown assessment directly on
 ├── .github/
 │   └── workflows/
 │       ├── pr-triage.yml         # Automated GitHub Actions workflow on PRs
-│       └── deploy-pages.yml      # Zero-cost GitHub Pages deployment workflow
+│       └── deploy-pages.yml      # GitHub Pages deployment workflow
 ├── engine/
 │   ├── pr_risk_engine.py         # Core Python scoring engine & heuristic rules
 │   ├── cli.py                    # Action runner & command-line interface
