@@ -318,7 +318,7 @@ if __name__ == "__main__":
     evaluator = BenchmarkEvaluator()
     bench_results = evaluator.run_benchmark()
     print("=" * 65)
-    print("🎯 IBM DEVOPS LOOP - BACKTESTING BENCHMARK REPORT")
+    print("🎯 PR RISK TRIAGE AGENT - BACKTESTING BENCHMARK REPORT")
     print("=" * 65)
     print(f"Total PRs Tested     : {bench_results['total_evaluated_prs']}")
     print(f"False-Negative Rate  : {bench_results['metrics']['false_negative_rate_pct']}% (Target: < 2.0%)")

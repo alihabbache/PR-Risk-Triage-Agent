@@ -1,6 +1,5 @@
 """
 PR Risk Triage Agent - Core Scoring Engine
-IBM DevOps Loop - Product Prototype
 """
 
 import json
@@ -513,7 +512,7 @@ class PRRiskEngine:
         unique_reviewers = list(dict.fromkeys(recommended_reviewers))
 
         lines = [
-            f"### 🛡️ IBM DevOps Loop — PR Risk Triage Agent",
+            f"### 🛡️ PR Risk Triage Agent",
             f"",
             f"**Assigned Risk Tier**: `{risk_level}` (`{risk_label}`) | **Composite Score**: **`{total_score}/100`**",
             f"",
@@ -548,7 +547,7 @@ class PRRiskEngine:
 
         lines.append("")
         lines.append(
-            f"*> 💡 Automated by IBM DevOps Loop PR Risk Triage Agent (POC). Target: <2.0% False Negative Rate.*"
+            f"*> 💡 Automated by PR Risk Triage Agent. Target: <2.0% False Negative Rate.*"
         )
 
         return "\n".join(lines)

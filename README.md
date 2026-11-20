@@ -1,4 +1,4 @@
-# 🛡️ PR Risk Triage Agent — IBM DevOps Loop POC
+# 🛡️ PR Risk Triage Agent
 
 > **An intelligent, zero-cost shift-left agent that scores every Pull Request on blast radius, past incident correlation, and author context — routing reviewer attention where it matters most.**
 
@@ -137,7 +137,7 @@ jobs:
 When triggered, the bot generates an explainable markdown assessment directly on the PR:
 
 ```markdown
-### 🛡️ IBM DevOps Loop — PR Risk Triage Agent
+### 🛡️ PR Risk Triage Agent
 
 **Assigned Risk Tier**: `CRITICAL` (`risk:critical-blocking-review`) | **Composite Score**: **`82.5/100`**
 
@@ -183,7 +183,7 @@ When triggered, the bot generates an explainable markdown assessment directly on
 ├── action.yml                    # GitHub Action manifest definition
 ├── index.html                    # Interactive Web POC Dashboard
 ├── app.js                        # Client-side engine, simulator, and ROI model
-├── style.css                     # IBM Carbon-inspired enterprise styling
+├── style.css                     # Responsive modern styling
 ├── PRD.md                        # Technical Product Manager PRD specification
 └── README.md                     # Documentation & setup guide
 ```

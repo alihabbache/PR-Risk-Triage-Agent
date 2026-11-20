@@ -1,5 +1,5 @@
 /**
- * IBM DevOps Loop - PR Risk Triage Agent
+ * PR Risk Triage Agent
  * Client-side Engine, Simulator, Backtest Suite & ROI Calculator
  */
 
@@ -390,7 +390,7 @@ function evaluatePR(pr) {
 
   // Generate markdown comment
   const comment = [
-    `### 🛡️ IBM DevOps Loop — PR Risk Triage Agent`,
+    `### 🛡️ PR Risk Triage Agent`,
     ``,
     `**Assigned Risk Tier**: \`${riskLevel}\` (\`${riskLabel}\`) | **Composite Score**: **\`${totalScore}/100\`**`,
     ``,
@@ -418,7 +418,7 @@ function evaluatePR(pr) {
   comment.push(``, `#### 🎯 Recommended Action Plan`);
   comment.push(`- **Suggested Reviewers**: ${[...new Set(recommendedReviewers)].join(", ")}`);
   recommendedChecks.forEach(c => comment.push(`- [ ] ${c}`));
-  comment.push(``, `*> 💡 Automated by IBM DevOps Loop PR Risk Triage Agent (POC). Target: <2.0% False Negative Rate.*`);
+  comment.push(``, `*> 💡 Automated by PR Risk Triage Agent. Target: <2.0% False Negative Rate.*`);
 
   return {
     blastScore: Math.round(blastScore * 10) / 10,

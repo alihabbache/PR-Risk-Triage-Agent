@@ -18,8 +18,8 @@
   --risk-high-bg: rgba(255, 131, 43, 0.15);
   --risk-crit: #da1e28;
   --risk-crit-bg: rgba(218, 30, 40, 0.18);
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  --font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 }
 
 * {
@@ -55,7 +55,7 @@ body {
   gap: 1rem;
 }
 
-.ibm-tag {
+.brand-tag {
   background: #0f62fe;
   color: #fff;
   font-weight: 700;

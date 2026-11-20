@@ -52,7 +52,7 @@ def parse_github_event(event_path: str) -> PullRequestInput:
 
 
 def run_cli():
-    parser = argparse.ArgumentParser(description="IBM DevOps Loop PR Risk Triage Agent CLI")
+    parser = argparse.ArgumentParser(description="PR Risk Triage Agent CLI")
     parser.add_argument("--event-path", help="Path to GitHub event.json payload")
     parser.add_argument("--pr-json", help="Path to custom PR json input")
     parser.add_argument("--author", default="alice_sr_architect", help="PR Author username")
@@ -113,7 +113,7 @@ def run_cli():
     breakdown = engine.evaluate(pr)
 
     print("\n" + "=" * 65)
-    print("🛡️  IBM DEVOPS LOOP - PR RISK TRIAGE EVALUATION REPORT")
+    print("🛡️  PR RISK TRIAGE EVALUATION REPORT")
     print("=" * 65)
     print(f"PR #{pr.pr_number}: {pr.title}")
     print(f"Author: {pr.author} | Files Touched: {len(pr.files)}")

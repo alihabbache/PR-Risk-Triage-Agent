@@ -1,11 +1,12 @@
 # 📋 Product Requirements Document (PRD)
-## IBM DevOps Loop — PR Risk Triage Agent
+## PR Risk Triage Agent
 
 ---
 
 ### **Document Metadata**
 - **Product Name**: PR Risk Triage Agent
-- **Initiative**: IBM DevOps Loop — Intelligent Shift-Left Code Review
+- **Initiative**: Intelligent Shift-Left Code Review & Risk Triage
+- **Author**: Ali Habbache
 - **Role**: Technical Product Manager (TPM)
 - **Status**: Prototype / Proof-of-Concept (POC)
 - **Target Release**: Q2 2026
@@ -132,5 +133,5 @@ For a standard mid-market enterprise team (30 developers, 60 PRs/week):
 
 - **Phase 1 (Current POC)**: Standalone Python scoring engine, CLI tool, Backtesting benchmark suite, and interactive GitHub Pages dashboard.
 - **Phase 2 (Q3 2026)**: Live GitHub Action marketplace release with automated Slack/Teams notification webhooks.
-- **Phase 3 (Q4 2026)**: Integration with IBM watsonx / IBM DevOps Loop observability platform to auto-ingest ServiceNow and Jira post-mortem incidents.
+- **Phase 3 (Q4 2026)**: Direct integration with incident management platforms (PagerDuty, ServiceNow, Jira) to auto-ingest post-mortem incident artifacts.
 - **Phase 4 (Q1 2027)**: Self-learning Bayesian weight calibration based on repository merge success rates and rollback telemetry.

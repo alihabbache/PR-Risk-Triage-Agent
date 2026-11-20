@@ -1,6 +1,6 @@
-name: "IBM DevOps Loop PR Risk Triage Agent"
+name: "PR Risk Triage Agent"
 description: "Scores Pull Requests on blast radius, past incident correlation, and author context. Posts risk triage comments and labels."
-author: "IBM DevOps Loop"
+author: "Ali Habbache"
 branding:
   icon: "shield"
   color: "blue"
