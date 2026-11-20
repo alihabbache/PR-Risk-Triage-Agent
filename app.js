@@ -694,16 +694,16 @@ function runBacktestBenchmark(threshold) {
 
   evaluations.forEach(ev => {
     const tr = document.createElement("tr");
-    let statusBadge = "background: rgba(36,161,72,0.2); color:#42be65;";
-    if (ev.status.startsWith("FN")) statusBadge = "background: rgba(218,30,40,0.3); color:#ff8389;";
-    else if (ev.status.startsWith("FP")) statusBadge = "background: rgba(241,194,27,0.2); color:#f1c21b;";
+    let statusBadge = "background: #dcfce7; color: #15803d; border: 1px solid #86efac;";
+    if (ev.status.startsWith("FN")) statusBadge = "background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5;";
+    else if (ev.status.startsWith("FP")) statusBadge = "background: #fef3c7; color: #b45309; border: 1px solid #fde68a;";
 
     tr.innerHTML = `
       <td><strong>#${ev.pr_number}</strong></td>
       <td>${ev.title}</td>
       <td><code>@${ev.author}</code></td>
       <td><strong>${ev.riskScore}</strong></td>
-      <td><span class="badge-tag" style="background:var(--cds-layer-03);">${ev.riskLevel}</span></td>
+      <td><span class="badge-tag" style="background:var(--cds-layer-03); color:var(--cds-text-01);">${ev.riskLevel}</span></td>
       <td>${ev.incident ? `🔥 ${ev.sev}` : '✅ Clean/Cosmetic'}</td>
       <td><span class="badge-tag" style="${statusBadge}">${ev.status}</span></td>
     `;
