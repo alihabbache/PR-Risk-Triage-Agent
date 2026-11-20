@@ -1,0 +1,50 @@
+name: "IBM DevOps Loop PR Risk Triage Agent"
+description: "Scores Pull Requests on blast radius, past incident correlation, and author context. Posts risk triage comments and labels."
+author: "IBM DevOps Loop"
+branding:
+  icon: "shield"
+  color: "blue"
+
+inputs:
+  github-token:
+    description: "GitHub Token for posting PR comments and applying labels"
+    required: true
+    default: ${{ github.token }}
+  risk-threshold:
+    description: "Score threshold above which PR is flagged as requiring intensive review"
+    required: false
+    default: "35.0"
+  auto-label:
+    description: "Whether to automatically apply risk labels to the PR"
+    required: false
+    default: "true"
+
+outputs:
+  risk_score:
+    description: "Composite PR risk score (0-100)"
+    value: ${{ steps.run-engine.outputs.risk_score }}
+  risk_level:
+    description: "Assigned risk level (LOW, MEDIUM, HIGH, CRITICAL)"
+    value: ${{ steps.run-engine.outputs.risk_level }}
+  risk_label:
+    description: "GitHub label string (e.g. risk:high-targeted-review)"
+    value: ${{ steps.run-engine.outputs.risk_label }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
+
+    - name: Run PR Risk Triage Engine
+      id: run-engine
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        EVENT_PATH: ${{ github.event_path }}
+      run: |
+        python3 "${{ github.action_path }}/engine/cli.py" \
+          --event-path "$EVENT_PATH" \
+          --github-output "$GITHUB_OUTPUT"

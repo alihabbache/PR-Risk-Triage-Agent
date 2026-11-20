@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBM DevOps Loop — PR Risk Triage Agent POC</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Header Navigation -->
+  <header class="app-header">
+    <div class="brand-wrapper">
+      <span class="ibm-tag">IBM DEVOPS LOOP</span>
+      <h1 class="app-title">PR Risk Triage Agent</h1>
+    </div>
+    <div class="header-badges">
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        <span>POC Engine Active (Zero Cost)</span>
+      </div>
+      <div class="status-badge" style="border-color: #0f62fe; color: #78a9ff;">
+        <span>🎯 Target FNR: &lt; 2.0%</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    
+    <!-- Tab Navigation -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="tabSimulator">🧪 Live PR Risk Analyzer</button>
+      <button class="tab-btn" data-tab="tabBacktesting">🎯 Backtesting & FNR Evaluation</button>
+      <button class="tab-btn" data-tab="tabROI">💼 TPM ROI & Impact Model</button>
+      <button class="tab-btn" data-tab="tabArchitecture">📐 System Architecture & PRD</button>
+    </nav>
+
+    <!-- TAB 1: Live PR Risk Analyzer -->
+    <section id="tabSimulator" class="tab-pane active">
+      <div class="grid-2col">
+        
+        <!-- Left Column: Input Simulator -->
+        <div>
+          <div class="card">
+            <div class="card-title">
+              <span>🚀 Pull Request Configurator</span>
+              <span style="font-size:0.8rem; color:var(--cds-text-03);">Interactive Sandbox</span>
+            </div>
+
+            <!-- Presets -->
+            <div class="form-group">
+              <label class="form-label">Quick Scenario Presets</label>
+              <div class="preset-chips" id="presetChips"></div>
+            </div>
+
+            <!-- PR Title -->
+            <div class="form-group">
+              <label class="form-label" for="prTitleInput">Pull Request Title</label>
+              <input type="text" id="prTitleInput" class="form-control" value="Refactor checkout idempotency and stripe webhook lock">
+            </div>
+
+            <!-- Author & Target Branch -->
+            <div class="form-row form-group">
+              <div class="flex-1">
+                <label class="form-label" for="prAuthorSelect">PR Author Persona</label>
+                <select id="prAuthorSelect" class="form-control">
+                  <option value="carol_junior_newjoiner">Carol (Junior / New Joiner - 2m tenure)</option>
+                  <option value="bob_backend_mid">Bob (Mid-level Backend - 14m tenure, 3 reverts)</option>
+                  <option value="alice_sr_architect">Alice (Principal Architect - 36m tenure)</option>
+                  <option value="external_contributor">External Contributor (First-time / 0 merges)</option>
+                </select>
+              </div>
+              <div class="flex-1">
+                <label class="form-label">Target Branch</label>
+                <input type="text" class="form-control" value="main (Production)" readonly style="color:var(--cds-text-03);">
+              </div>
+            </div>
+
+            <!-- Files Touched Table -->
+            <div class="form-group">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                <label class="form-label" style="margin-bottom:0;">Files Touched in Diff</label>
+                <button type="button" class="btn-secondary" onclick="addNewFileRow()">+ Add File</button>
+              </div>
+
+              <table class="file-table">
+                <thead>
+                  <tr>
+                    <th>File Path</th>
+                    <th style="width:70px;">+ Add</th>
+                    <th style="width:70px;">- Del</th>
+                    <th style="width:40px;"></th>
+                  </tr>
+                </thead>
+                <tbody id="fileTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Correlated Historical Incidents Card -->
+          <div class="card">
+            <div class="card-title">
+              <span>🚨 Correlated Historical Incidents</span>
+              <span style="font-size:0.8rem; color:var(--cds-text-03);">Post-Mortem Cross-Match</span>
+            </div>
+            <div id="correlatedIncidentsBox"></div>
+          </div>
+        </div>
+
+        <!-- Right Column: Live Triage Results & GitHub Comment Mock -->
+        <div>
+          <!-- Score Result Card -->
+          <div class="card">
+            <div class="card-title">
+              <span>🛡️ Real-Time Risk Assessment</span>
+              <span id="riskLabelBadge" class="badge-tag" style="background:#0f62fe; color:#fff;">risk:critical-blocking-review</span>
+            </div>
+
+            <div class="score-hero-container">
+              <div class="score-circle-wrapper">
+                <div class="score-number" id="scoreValue">82.5</div>
+              </div>
+              <div>
+                <div id="riskTierBadge" class="score-tier-badge tier-CRITICAL">CRITICAL RISK</div>
+                <div style="font-size:0.85rem; color:var(--cds-text-02);">
+                  Composite score evaluated across blast radius, incident correlation, and author track record.
+                </div>
+              </div>
+            </div>
+
+            <!-- Breakdown Bars -->
+            <div class="breakdown-row">
+              <div class="breakdown-header">
+                <span>🌐 Blast Radius (Weight: 40%)</span>
+                <span id="blastBarVal">85.0 / 100</span>
+              </div>
+              <div class="progress-track">
+                <div id="blastBarFill" class="progress-fill" style="width: 85%; background-color: var(--risk-crit);"></div>
+              </div>
+            </div>
+
+            <div class="breakdown-row">
+              <div class="breakdown-header">
+                <span>🔥 Incident Correlation (Weight: 35%)</span>
+                <span id="incBarVal">92.0 / 100</span>
+              </div>
+              <div class="progress-track">
+                <div id="incBarFill" class="progress-fill" style="width: 92%; background-color: var(--risk-crit);"></div>
+              </div>
+            </div>
+
+            <div class="breakdown-row">
+              <div class="breakdown-header">
+                <span>👤 Author & Domain Risk (Weight: 25%)</span>
+                <span id="authBarVal">65.0 / 100</span>
+              </div>
+              <div class="progress-track">
+                <div id="authBarFill" class="progress-fill" style="width: 65%; background-color: var(--risk-high);"></div>
+              </div>
+            </div>
+
+            <!-- Key Drivers -->
+            <div style="margin-top: 1.25rem;">
+              <label class="form-label">🔍 Key Explainability Drivers</label>
+              <ul class="driver-list" id="keyDriversList"></ul>
+            </div>
+          </div>
+
+          <!-- GitHub Comment Preview Card -->
+          <div class="card">
+            <div class="card-title">
+              <span>💬 Automated GitHub PR Comment Preview</span>
+              <button class="copy-btn" id="copyBtn" onclick="copyBotComment()">Copy Markdown</button>
+            </div>
+
+            <div class="gh-comment-box">
+              <div class="gh-comment-header">
+                <div class="gh-bot-avatar">🛡️</div>
+                <span class="gh-bot-name">ibm-devops-loop-bot</span>
+                <span class="gh-bot-tag">BOT</span>
+                <span style="color:#8b949e; font-size:0.75rem; margin-left:auto;">just now</span>
+              </div>
+              <div class="gh-comment-body">
+                <pre id="markdownBotComment"></pre>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 2: Backtesting & FNR Evaluation -->
+    <section id="tabBacktesting" class="tab-pane">
+      <div class="card">
+        <div class="card-title">
+          <span>🎯 Historical Backtesting & False-Negative Rate Benchmark</span>
+          <span style="font-size:0.8rem; color:var(--cds-text-03);">Ground-Truth Dataset (18 Historical PRs)</span>
+        </div>
+
+        <p style="font-size:0.9rem; color:var(--cds-text-02); margin-bottom:1.25rem;">
+          The primary success criterion for the IBM DevOps Loop PR Risk Triage Agent is maintaining a
+          <strong>measurable False-Negative Rate &lt; 2.0%</strong> (ensuring incident-prone PRs are never categorized as "Cosmetic / Low Risk"),
+          while maximizing the safe fast-tracking of truly cosmetic PRs.
+        </p>
+
+        <!-- Threshold Slider Control -->
+        <div style="background:var(--cds-layer-02); padding:1rem; border-radius:6px; margin-bottom:1.5rem; display:flex; align-items:center; gap:1.5rem;">
+          <div style="flex:1;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+              <label class="form-label" style="margin-bottom:0;">Calibrate Risk Review Threshold</label>
+              <span style="font-family:var(--font-mono); font-weight:700; color:var(--cds-accent);" id="sliderThresholdVal">35.0</span>
+            </div>
+            <input type="range" id="riskThresholdSlider" min="15" max="75" step="1" value="35" style="width:100%; cursor:pointer;">
+          </div>
+          <div style="font-size:0.8rem; color:var(--cds-text-03); max-width:280px;">
+            PRs with score &ge; threshold are routed for targeted human review. PRs below threshold qualify for fast-track merge.
+          </div>
+        </div>
+
+        <!-- Metrics Stat Row -->
+        <div class="metric-row">
+          <div class="stat-card">
+            <div class="stat-label">False-Negative Rate</div>
+            <div class="stat-val" id="metricFNR" style="color:#42be65;">0.0%</div>
+            <div style="font-size:0.75rem; color:var(--cds-text-03); margin-top:0.3rem;">Target: &lt; 2.0% (Zero escapes)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Recall (Sensitivity)</div>
+            <div class="stat-val" id="metricRecall" style="color:#78a9ff;">100.0%</div>
+            <div style="font-size:0.75rem; color:var(--cds-text-03); margin-top:0.3rem;">% of incident PRs caught</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Precision</div>
+            <div class="stat-val" id="metricPrecision" style="color:#f1c21b;">100.0%</div>
+            <div style="font-size:0.75rem; color:var(--cds-text-03); margin-top:0.3rem;">Reliability of high-risk flags</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Reviewer Time Saved</div>
+            <div class="stat-val" id="metricHoursSaved" style="color:#0f62fe;">5.8 hrs</div>
+            <div style="font-size:0.75rem; color:var(--cds-text-03); margin-top:0.3rem;">Across historical test batch</div>
+          </div>
+        </div>
+
+        <!-- Confusion Matrix Grid -->
+        <div class="cm-grid">
+          <div class="cm-box cm-box-tp">
+            <div class="cm-val" id="cmTP" style="color:#42be65;">8</div>
+            <div class="cm-label">True Positives (TP)</div>
+            <div style="font-size:0.75rem; color:var(--cds-text-03);">Risky PRs accurately flagged</div>
+          </div>
+          <div class="cm-box cm-box-tn">
+            <div class="cm-val" id="cmTN" style="color:#78a9ff;">10</div>
+            <div class="cm-label">True Negatives (TN)</div>
+            <div style="font-size:0.75rem; color:var(--cds-text-03);">Cosmetic PRs fast-tracked</div>
+          </div>
+          <div class="cm-box cm-box-fp">
+            <div class="cm-val" id="cmFP" style="color:#f1c21b;">0</div>
+            <div class="cm-label">False Positives (FP)</div>
+            <div style="font-size:0.75rem; color:var(--cds-text-03);">Cosmetic PRs over-flagged</div>
+          </div>
+          <div class="cm-box cm-box-fn">
+            <div class="cm-val" id="cmFN" style="color:#ff8389;">0</div>
+            <div class="cm-label">False Negatives (FN)</div>
+            <div style="font-size:0.75rem; color:var(--cds-text-03);">Escaped incidents (CRITICAL DEFECT)</div>
+          </div>
+        </div>
+
+        <!-- Historical Benchmark Dataset Table -->
+        <div class="card-title" style="margin-top:1.5rem;">
+          <span>📋 Benchmark Evaluation Trace (Click any row to test in sandbox)</span>
+        </div>
+        <div class="backtest-table-container">
+          <table class="backtest-table">
+            <thead>
+              <tr>
+                <th>PR #</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Risk Score</th>
+                <th>Tier</th>
+                <th>Ground Truth</th>
+                <th>Triage Status</th>
+              </tr>
+            </thead>
+            <tbody id="backtestTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: TPM ROI & Impact Model -->
+    <section id="tabROI" class="tab-pane">
+      <div class="grid-2col">
+        <div class="card">
+          <div class="card-title">
+            <span>📊 Engineering Organization Sizing</span>
+            <span style="font-size:0.8rem; color:var(--cds-text-03);">ROI Parameter Inputs</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="teamSizeInput">Engineering Team Size (Developers & Reviewers)</label>
+            <input type="number" id="teamSizeInput" class="form-control" value="30" min="5" max="500">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="prsPerWeekInput">Average Pull Requests Merged per Week</label>
+            <input type="number" id="prsPerWeekInput" class="form-control" value="60" min="10" max="1000">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="avgReviewTimeInput">Average Baseline Review Time per PR (Minutes)</label>
+            <input type="number" id="avgReviewTimeInput" class="form-control" value="45" min="15" max="180">
+          </div>
+
+          <div style="background:var(--cds-layer-02); padding:1rem; border-radius:4px; font-size:0.85rem; color:var(--cds-text-02); margin-top:1rem;">
+            <strong>Industry TPM Benchmarks Applied:</strong>
+            <ul style="margin-top:0.4rem; padding-left:1.2rem;">
+              <li>40% of repo PRs are purely cosmetic (docs, formatting, mocks, typos).</li>
+              <li>Triage fast-tracking saves ~30 mins per cosmetic PR.</li>
+              <li>Reduces post-merge escaped SEV-1/SEV-2 incidents by ~3.5 outages/year.</li>
+              <li>Estimated developer cost: $95/hr; Average outage mitigation cost: $40,000.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>💰 Projected Annual Impact & Value</span>
+            <span class="badge-tag" style="background:rgba(36,161,72,0.2); color:#42be65;">Zero Cost POC</span>
+          </div>
+
+          <div class="metric-row" style="grid-template-columns: 1fr 1fr;">
+            <div class="stat-card">
+              <div class="stat-label">Reviewer Hours Saved / Yr</div>
+              <div class="stat-val" id="roiHoursSaved" style="color:#78a9ff;">624</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Engineering Capacity Value</div>
+              <div class="stat-val" id="roiEngSavings" style="color:#42be65;">$59,280</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Prevented Outage Costs</div>
+              <div class="stat-val" id="roiOutageSavings" style="color:#f1c21b;">$140,000</div>
+            </div>
+            <div class="stat-card" style="border-color:#0f62fe;">
+              <div class="stat-label">Total Annual Value</div>
+              <div class="stat-val" id="roiTotalValue" style="color:#0f62fe;">$199,280</div>
+            </div>
+          </div>
+
+          <div style="background:var(--cds-layer-02); padding:1rem; border-radius:4px; font-size:0.85rem;">
+            <h4 style="color:var(--cds-text-01); margin-bottom:0.4rem;">🎯 Key Qualitative Gains for IBM DevOps Loop:</h4>
+            <p style="color:var(--cds-text-02); margin-bottom:0.4rem;">• <strong>Eliminates Reviewer Fatigue</strong>: Developers stop spending hours on 10-line cosmetic docs and focus deep attention on database locks and authentication tokens.</p>
+            <p style="color:var(--cds-text-02); margin-bottom:0.4rem;">• <strong>Actionable Checklists</strong>: Critical PRs automatically require staging canaries, rollback guards, and 2+ principal approvers.</p>
+            <p style="color:var(--cds-text-02);">• <strong>Zero Infrastructure Cost</strong>: Runs 100% inside GitHub Actions and GitHub Pages with zero external backend overhead.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: Architecture & PRD -->
+    <section id="tabArchitecture" class="tab-pane">
+      <div class="card">
+        <div class="card-title">
+          <span>📐 Product Architecture & Algorithm Specification</span>
+          <span style="font-size:0.8rem; color:var(--cds-text-03);">IBM DevOps Loop Technical Spec</span>
+        </div>
+
+        <div style="font-size:0.9rem; color:var(--cds-text-02); line-height:1.7;">
+          <h3 style="color:var(--cds-text-01); margin: 1rem 0 0.5rem;">1. Problem Definition</h3>
+          <p>
+            Code reviewers at scale cannot immediately discern high-risk, production-breaking PRs from routine or cosmetic PRs.
+            Reviewer fatigue causes mission-critical bugs (e.g. race conditions in checkout, unverified JWT signatures) to be rubber-stamped,
+            while simple doc and test PRs suffer unnecessary review lag.
+          </p>
+
+          <h3 style="color:var(--cds-text-01); margin: 1.25rem 0 0.5rem;">2. Core Tri-Pillar Scoring Formulation</h3>
+          <p>The PR Risk Triage Agent computes a composite score $S \in [0, 100]$ using a calibrated weighted formulation:</p>
+          <pre style="background:var(--cds-layer-02); padding:0.8rem; border-radius:4px; margin:0.6rem 0; font-family:var(--font-mono); color:#78a9ff;">
+Risk_Score = (0.40 * Blast_Radius) + (0.35 * Incident_Correlation) + (0.25 * Author_Risk)
+Safety Guardrail: IF Overlaps(SEV-1 Incident Files) => Floor Score = MAX(Risk_Score, 55.0)
+          </pre>
+
+          <h3 style="color:var(--cds-text-01); margin: 1.25rem 0 0.5rem;">3. Risk Tiers and Automated GitHub Actions Response</h3>
+          <table class="file-table" style="margin: 0.8rem 0;">
+            <thead>
+              <tr>
+                <th>Tier</th>
+                <th>Score Range</th>
+                <th>Label Applied</th>
+                <th>Automated Policy & Reviewer Route</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong style="color:var(--risk-low);">LOW</strong></td>
+                <td>0.0 &ndash; 34.9</td>
+                <td><code>risk:low-cosmetic</code></td>
+                <td>Fast-track eligible upon passing CI; 1 peer review.</td>
+              </tr>
+              <tr>
+                <td><strong style="color:var(--risk-med);">MEDIUM</strong></td>
+                <td>35.0 &ndash; 59.9</td>
+                <td><code>risk:medium-standard-review</code></td>
+                <td>Standard peer review; regular unit/lint test suite.</td>
+              </tr>
+              <tr>
+                <td><strong style="color:var(--risk-high);">HIGH</strong></td>
+                <td>60.0 &ndash; 79.9</td>
+                <td><code>risk:high-targeted-review</code></td>
+                <td>Domain specialist approver required; integration regression suite.</td>
+              </tr>
+              <tr>
+                <td><strong style="color:#ff8389;">CRITICAL</strong></td>
+                <td>80.0 &ndash; 100.0</td>
+                <td><code>risk:critical-blocking-review</code></td>
+                <td>Mandatory 2+ Principal approvers; Staging canary guard; Stress tests.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3 style="color:var(--cds-text-01); margin: 1.25rem 0 0.5rem;">4. Zero-Cost Implementation Architecture</h3>
+          <p>
+            • <strong>Client-Side Engine</strong>: Runs directly in browser via GitHub Pages for demonstration and simulation.<br>
+            • <strong>GitHub Action CI/CD</strong>: Executes via standard Python CLI during <code>pull_request</code> event trigger.<br>
+            • <strong>No Dedicated Servers</strong>: Leverages repository metadata and GitHub API tokens without requiring external databases or paid SaaS endpoints.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
